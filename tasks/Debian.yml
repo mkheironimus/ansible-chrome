@@ -1,0 +1,36 @@
+---
+- name: Create apt key directory
+  file:
+    path: "{{ chrome_apt_key_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  when: chrome_manage_apt_key_dir and not chrome_remove
+
+- name: Add apt keys
+  ansible.builtin.get_url:
+    url: "{{ chrome_apt_key_url }}"
+    dest: "{{ chrome_apt_key_dir }}/google-chrome.key"
+    checksum: "{{ chrome_apt_key_checksum }}"
+    owner: root
+    group: root
+    mode: "0644"
+  when: not chrome_remove
+
+- name: Add apt repositories
+  template:
+    src: google-chrome.list.j2
+    dest: /etc/apt/sources.list.d/google-chrome.list
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    apt_key_dir: "{{ chrome_apt_key_dir }}"
+    arch: "{{ chrome_apt_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+  when: not chrome_remove
+
+- name: Install packages
+  package:
+    name: "{{ chrome_packages }}"
+    state: "{{ 'absent' if chrome_remove else 'present' }}"
