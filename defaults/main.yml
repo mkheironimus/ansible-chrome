@@ -5,6 +5,7 @@ chrome_remove: false
 # Package management names
 chrome_packages:
   - google-chrome-stable
+  - libu2f-host0
 
 # Apt repository configuration
 chrome_apt_key_dir: /usr/local/share/apt
