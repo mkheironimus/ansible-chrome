@@ -34,7 +34,13 @@
   vars:
     apt_key_dir: "{{ chrome_apt_key_dir }}"
     arch: "{{ chrome_apt_arch_map[ansible_architecture] | default(ansible_architecture) }}"
+  register: chrome_apt_added
   when: not chrome_remove
+
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+  when: chrome_apt_added.changed and not chrome_remove
 
 - name: Install packages
   package:
