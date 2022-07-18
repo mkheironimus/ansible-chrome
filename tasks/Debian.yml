@@ -1,4 +1,10 @@
 ---
+- name: Install apt HTTPS transport
+  package:
+    name:
+      - apt-transport-https
+    state: present
+
 - name: Create apt key directory
   file:
     path: "{{ chrome_apt_key_dir }}"
