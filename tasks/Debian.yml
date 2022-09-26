@@ -1,12 +1,12 @@
 ---
 - name: Install apt HTTPS transport
-  package:
+  ansible.builtin.package:
     name:
       - apt-transport-https
     state: present
 
 - name: Create apt key directory
-  file:
+  ansible.builtin.file:
     path: "{{ chrome_apt_key_dir }}"
     state: directory
     owner: root
@@ -25,7 +25,7 @@
   when: not chrome_remove
 
 - name: Add apt repositories
-  template:
+  ansible.builtin.template:
     src: google-chrome.list.j2
     dest: /etc/apt/sources.list.d/google-chrome.list
     owner: root
@@ -43,6 +43,6 @@
   when: chrome_apt_added.changed and not chrome_remove
 
 - name: Install packages
-  package:
+  ansible.builtin.package:
     name: "{{ chrome_packages }}"
     state: "{{ 'absent' if chrome_remove else 'present' }}"
