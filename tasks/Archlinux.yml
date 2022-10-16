@@ -1,0 +1,7 @@
+---
+- name: Install chrome
+  kewlfft.aur.aur:
+    name: google-chrome
+    state: present
+  become: yes
+  become_user: "{{ chrome_aur_user }}"
