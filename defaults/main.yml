@@ -11,7 +11,7 @@ chrome_packages:
 chrome_apt_key_dir: /usr/local/share/apt
 chrome_manage_apt_key_dir: true
 chrome_apt_key_url: https://dl-ssl.google.com/linux/linux_signing_key.pub
-chrome_apt_key_checksum: sha256:c9e8f825be3168600804973fdd41e47dd26a9b29d6b1a8b6fcab31758daced8c
+chrome_apt_key_checksum: sha256:05ee0181a70b39bd5c71630bc9a828856c22cebd9449602759dd4fd89338e54d
 chrome_apt_arch_map:
   x86_64: amd64
 
